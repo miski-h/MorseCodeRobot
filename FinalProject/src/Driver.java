@@ -11,14 +11,13 @@ import lejos.robotics.SampleProvider;
 
 
 public class Driver implements Behavior {
-    private static final int WALL_DISTANCE_THRESHOLD = 40;
+    private static final int WALL_DISTANCE_THRESHOLD = 35;
     private EV3UltrasonicSensor ultrasonicSensor;
     private SampleProvider distanceProvider;
     private float[] sample;
     private BaseRegulatedMotor mLeft = new EV3LargeRegulatedMotor(MotorPort.A);
     private BaseRegulatedMotor mRight = new EV3LargeRegulatedMotor(MotorPort.B);
     private boolean suppressed = false;
-    private boolean hasTurned = false;
     private float LOW_LEVEL;
 
 
@@ -34,8 +33,6 @@ public class Driver implements Behavior {
         distanceProvider.fetchSample(sample, 0);
         float distance = sample[0] * 100;
         float voltLevel = Battery.getVoltage();
-        System.out.println("Distance: " + distance);
-        System.out.println("Voltage: " + voltLevel);
         
         if (voltLevel < LOW_LEVEL){
         	playSound();
@@ -54,7 +51,6 @@ public class Driver implements Behavior {
         suppressed = false;
         if (!suppressed) {
                backupAndTurn();
-               hasTurned = true;
         }
     }
 
@@ -97,7 +93,6 @@ public class Driver implements Behavior {
             } else {
                 behavior.mLeft.forward();
                 behavior.mRight.forward();
-                behavior.hasTurned = false; // Reset the flag when not in turning state
             }
             try {
                 Thread.sleep(500);

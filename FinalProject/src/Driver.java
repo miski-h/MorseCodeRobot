@@ -26,13 +26,17 @@ public class Driver {
 
         Arbitrator arbitrator = new Arbitrator(behaviors);
         
-        while(true) {
-        	if (Button.ENTER.isDown()){
-        		arbitrator.stop();
-        		break;
-        	}
-        	arbitrator.go();
-        }     
+        Button.ESCAPE.addButtonListener(new ButtonListener() {
+            public void buttonPressed(Button b) {
+                System.exit(0);
+            }
+
+            public void buttonReleased(Button b) {
+                // Do nothing on release
+            }
+        });
+
+	arbitrator.go()  
     }
 }
 

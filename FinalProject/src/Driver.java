@@ -3,6 +3,7 @@ import lejos.robotics.navigation.MovePilot;
 import lejos.hardware.port.SensorPort;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
+import lejos.hardware.Button;
 
 public class Driver {
     public static void main(String[] args) {
@@ -14,21 +15,17 @@ public class Driver {
     	System.out.println("Press any button to continue...");
     	Button.waitForAnyPress();
         
-        // Initialize MovePilot for driving
-        MovePilot pilot = new MovePilot(5.6f, 12.0f, Motor.A, Motor.B);
+        @SuppressWarnings("deprecation")
+		MovePilot pilot = new MovePilot(5.6f, 12.0f, Motor.A, Motor.B);
 
-        // Initialize behaviors
-        Behavior forwardBehavior = new ForwardBehavior(pilot);
-        Behavior avoidWallBehavior = new AvoidWallBehavior(SensorPort.S1, pilot);
-        Behavior lowBatteryBehavior = new LowBatteryBehavior();
+        Behavior forwardBehavior = new Trundle(pilot);
+        Behavior avoidWallBehavior = new Backup(SensorPort.S3, pilot);
+        Behavior lowBatteryBehavior = new Battery();
 
-        // Construct an array of behaviors
         Behavior[] behaviors = {forwardBehavior, avoidWallBehavior, lowBatteryBehavior};
 
-        // Initialize an arbitrator with the behaviors
         Arbitrator arbitrator = new Arbitrator(behaviors);
 
-        // Start the arbitrator
         arbitrator.go();
     }
 }

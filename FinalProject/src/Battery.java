@@ -1,12 +1,13 @@
 import lejos.robotics.subsumption.Behavior;
 import lejos.hardware.Sound;
+import lejos.hardware.Battery;
 
 public class Battery implements Behavior {
     private boolean suppressed = false;
 
     // Returns true if the battery level is low
     public boolean takeControl() {
-        return Battery.getVoltage() < 6.0; // You may need to adjust this threshold based on your battery and system setup
+        return Battery.getBatteryCurrent() < 6.0; // You may need to adjust this threshold based on your battery and system setup
     }
 
     // Just notifies the action method by setting a field to true

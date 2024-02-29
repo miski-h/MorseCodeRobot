@@ -28,8 +28,10 @@ public class Driver {
         
         while(true) {
         	if (Button.ENTER.isDown()){
-        		arbitrator.go();
+        		arbitrator.stop();
+        		break;
         	}
+        	arbitrator.go();
         }     
     }
 }

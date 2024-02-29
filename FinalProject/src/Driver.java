@@ -8,12 +8,12 @@ import lejos.hardware.Button;
 public class Driver {
     public static void main(String[] args) {
 
-        System.out.println("Welcome to Our Robot Program!");
+        System.out.println("Welcome to Our Morse Code Robot!");
     	System.out.println("Authors: Samuel Haddock, Yash Kumar and Miski Hussein");
     	System.out.println("Version: 1.0");
 
-    	System.out.println("Press any button to continue...");
-    	Button.waitForAnyPress();
+    	System.out.println("Press Enter button to continue...");
+    	Button.ENTER.waitForPress();
         
         @SuppressWarnings("deprecation")
 		MovePilot pilot = new MovePilot(5.6f, 12.0f, Motor.A, Motor.B);

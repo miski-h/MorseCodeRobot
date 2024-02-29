@@ -20,7 +20,7 @@ public class Driver {
 
         Behavior forwardBehavior = new Trundle(pilot);
         Behavior avoidWallBehavior = new Backup(SensorPort.S3, pilot);
-        Behavior lowBatteryBehavior = new Battery();
+        Behavior lowBatteryBehavior = new LowBattery();
 
         Behavior[] behaviors = {forwardBehavior, avoidWallBehavior, lowBatteryBehavior};
 

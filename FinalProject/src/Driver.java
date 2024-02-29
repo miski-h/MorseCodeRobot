@@ -25,8 +25,12 @@ public class Driver {
         Behavior[] behaviors = {forwardBehavior, avoidWallBehavior, lowBatteryBehavior};
 
         Arbitrator arbitrator = new Arbitrator(behaviors);
-
-        arbitrator.go();
+        
+        while(true) {
+        	if (Button.ENTER.isDown()){
+        		arbitrator.go();
+        	}
+        }     
     }
 }
 

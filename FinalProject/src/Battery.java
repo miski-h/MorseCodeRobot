@@ -1,5 +1,3 @@
-
-import lejos.hardware.Battery;
 import lejos.robotics.subsumption.Behavior;
 import lejos.hardware.Sound;
 

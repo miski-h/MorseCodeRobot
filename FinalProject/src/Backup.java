@@ -1,5 +1,6 @@
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.hardware.port.Port;
+import lejos.hardware.port.SensorPort;
 import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.navigation.MovePilot;
 import java.util.Random;
@@ -11,8 +12,8 @@ public class Backup implements Behavior {
     private MovePilot pilot;
     private Random random;
 
-    public AvoidWallBehavior(Port sensorPort, MovePilot pilot) {
-        this.ultrasonicSensor = new EV3UltrasonicSensor(sensorPort);
+    public Backup(Port sensorPort, MovePilot pilot) {
+    	this.ultrasonicSensor = new EV3UltrasonicSensor(SensorPort.S3);
         this.sample = new float[ultrasonicSensor.sampleSize()];
         this.pilot = pilot;
         this.random = new Random();

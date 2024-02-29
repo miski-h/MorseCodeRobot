@@ -6,7 +6,7 @@ public class Trundle implements Behavior {
     private boolean suppressed = false;
     private MovePilot pilot;
 
-    public ForwardBehavior(MovePilot pilot) {
+    public Trundle(MovePilot pilot) {
         this.pilot = pilot;
     }
 

@@ -2,7 +2,7 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.hardware.Sound;
 import lejos.hardware.Battery;
 
-public class Battery implements Behavior {
+public class LowBattery implements Behavior {
     private boolean suppressed = false;
 
     // Returns true if the battery level is low

@@ -1,13 +1,13 @@
 import lejos.hardware.Bluetooth;
 import lejos.robotics.subsumption.Behavior;
 
-public class Bluetooth implements Behavior {
+public class CheckBluetooth implements Behavior {
     private boolean suppressed = false;
     private boolean bluetoothMessageAvailable = false;
 
     // Returns true if a Bluetooth message is available
     public boolean takeControl() {
-        return Bluetooth.getNXTCommConnector().available() > 0;
+        return Bluetooth.getNXTCommConnector() != null;
     }
 
     // Just notifies the action method by setting a field to true

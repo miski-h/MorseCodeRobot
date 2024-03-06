@@ -1,0 +1,40 @@
+import lejos.hardware.Button;
+import lejos.hardware.lcd.LCD;
+import lejos.hardware.port.SensorPort;
+import lejos.hardware.sensor.NXTSoundSensor;
+import lejos.robotics.SampleProvider;
+
+public class DotDashDetector {
+
+    public static void main(String[] args) {
+        NXTSoundSensor soundSensor = new NXTSoundSensor(SensorPort.S1);
+        SampleProvider soundProvider = soundSensor.getDBAMode();
+        float[] soundLevel = new float[1]; // A sound sample is just one number
+
+        // Define thresholds for dot and dash
+        float dotThreshold = 0.5f; // Adjust as needed
+        float dashThreshold = 0.8f; // Adjust as needed
+
+        while (!Button.ENTER.isDown()) {
+            soundProvider.fetchSample(soundLevel, 0);
+            float currentSoundLevel = soundLevel[0];
+
+            LCD.clear();
+            LCD.drawString("Sound Level: " + currentSoundLevel, 0, 0);
+
+            if (currentSoundLevel >= dashThreshold) {
+                LCD.drawString("- (Dash)", 0, 1);
+            } else if (currentSoundLevel >= dotThreshold) {
+                LCD.drawString(". (Dot)", 0, 1);
+            }
+
+            try {
+                Thread.sleep(100); // Adjust the delay as needed
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        soundSensor.close();
+    }
+}

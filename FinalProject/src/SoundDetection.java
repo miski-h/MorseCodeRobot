@@ -18,6 +18,7 @@ class SoundDetection implements Behavior {
         float[] sample = new float[soundMode.sampleSize()];
         soundMode.fetchSample(sample, 0);
         // If sound level is above a certain threshold and the program is running, take control
+        System.out.print("Checking Condition!");
         return isRunning && sample[0] > SOUND_THRESHOLD;
     }
 

@@ -21,9 +21,9 @@ public class Driver {
         Behavior forwardBehavior = new Trundle(pilot);
         Behavior avoidWallBehavior = new Backup(SensorPort.S3, pilot);
         Behavior lowBatteryBehavior = new LowBattery();
-        Behavior bluetoothBehavior = new CheckBluetooth();
+        Behavior darkChecker = new DarkChecker(pilot, SensorPort.S1);
 
-        Behavior[] behaviors = {forwardBehavior, avoidWallBehavior, lowBatteryBehavior, bluetoothBehavior};
+        Behavior[] behaviors = {forwardBehavior, avoidWallBehavior, lowBatteryBehavior, darkChecker};
 
         Arbitrator arbitrator = new Arbitrator(behaviors);
         

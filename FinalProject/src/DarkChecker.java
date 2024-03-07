@@ -3,17 +3,20 @@ import lejos.hardware.port.Port;
 import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.navigation.MovePilot;
 
+
 public class DarkChecker implements Behavior {
     private boolean suppressed = false;
     private MovePilot pilot;
     private EV3ColorSensor colorSensor;
     private float[] sample;
 
+
     public DarkChecker(MovePilot pilot, Port sensorPort) {
         this.pilot = pilot;
         this.colorSensor = new EV3ColorSensor(sensorPort);
         this.sample = new float[colorSensor.sampleSize()];
     }
+
 
     // Returns true if the robot is going fast and the light level is below a certain level
     public boolean takeControl() {
@@ -23,15 +26,29 @@ public class DarkChecker implements Behavior {
         return (linearVelocity > 100 && lightLevel < 0.5); // adjust threshold values as needed
     }
 
+
     // Just notifies the action method by setting a field to true
     public void suppress() {
         suppressed = true;
     }
 
-    // Use setLinearSpeed based on certain conditions
+
+    // Print the current light level (dark or light)
     public void action() {
         suppressed = false;
+        colorSensor.fetchSample(sample, 0);
+        float lightLevel = sample[0];
+        if (lightLevel < 0.5) {
+            System.out.println("Dark");
+        } else {
+            System.out.println("Light");
+        }
         // Set desired speed based on conditions
         pilot.setLinearSpeed(200); // Example speed setting, adjust as needed
     }
 }
+
+
+
+
+

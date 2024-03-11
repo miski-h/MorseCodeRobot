@@ -1,55 +1,48 @@
+import lejos.hardware.sensor.SensorMode;
 import lejos.robotics.SampleProvider;
-import lejos.robotics.subsumption.Behavior;
+
+public class SoundDetection implements SampleProvider {
+    private final float threshold;
+    private final int timeGap;
+    private final SampleProvider ss;
+    private long lastHeard;
+    private long lastClapTime;
 
 
-class SoundDetection implements Behavior {
-    private SampleProvider soundMode;
-    private boolean suppressed = false;
-    private boolean isRunning = false;
-    private final float SOUND_THRESHOLD = 1.0f; // Adjust threshold as needed
-
-
-    public SoundDetection(SampleProvider soundMode) {
-        this.soundMode = soundMode;
-    }
-
-
-    public boolean takeControl() {
-        float[] sample = new float[soundMode.sampleSize()];
-        soundMode.fetchSample(sample, 0);
-        // If sound level is above a certain threshold and the program is running, take control
-        System.out.print("Checking Condition!");
-        return isRunning && sample[0] > SOUND_THRESHOLD;
-    }
-
-
-    public void action() {
-        suppressed = false;
-        System.out.println("Sound Detected!");
-        long startTime = System.currentTimeMillis();
-        while (!suppressed && takeControl()) {
-            // Keep track of the duration of sound
+    public SoundDetection(SensorMode soundMode, float level, int gap) {
+        timeGap = gap;
+        ss = soundMode;
+        threshold = level;
+        if (!soundMode.getName().startsWith("Sound")) {
+            throw new IllegalArgumentException("A Clap filter can only filter sound sensors");
         }
-        long endTime = System.currentTimeMillis();
-        long duration = endTime - startTime;
-        System.out.println("Sound Duration: " + duration + " milliseconds");
+        lastHeard = -2 * timeGap;
+        lastClapTime = 0;
     }
 
 
-    public void suppress() {
-        suppressed = true;
+    public void fetchSample(float level[], int index) {
+        level[index] = 0.0f;
+        long now = System.currentTimeMillis();
+        if (now - lastHeard > timeGap) {
+            ss.fetchSample(level, index);
+            if (level[index] >= threshold) {
+                if (now - lastClapTime < timeGap) {
+                    level[index] = 2.0f;
+                } else {
+                    level[index] = 1.0f;
+                }
+                lastClapTime = now;
+                lastHeard = now;
+            } else {
+                level[index] = 0.0f;
+            }
+        }
     }
 
 
-    // Method to set the running state of the program
-    public void setRunning(boolean running) {
-        isRunning = running;
-    }
-
-
-    // Method to check if the program is running
-    public boolean isRunning() {
-        return isRunning;
+    public int sampleSize() {
+        return 1;
     }
 }
 

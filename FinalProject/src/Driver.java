@@ -18,7 +18,7 @@ public class Driver {
         Button.ENTER.waitForPress();
         
         LCD.clear();
-
+        /*
         @SuppressWarnings("deprecation")
         MovePilot pilot = new MovePilot(5.6f, 12.0f, Motor.A, Motor.B);
 
@@ -52,6 +52,7 @@ public class Driver {
         // Stop the arbitrator and close the sound sensor when the enter button is pressed
         arbitrator.stop();
         soundSensor.close();
+        */
     }
 }
 

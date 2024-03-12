@@ -15,7 +15,7 @@ public class TestMorseCode {
 
         NXTSoundSensor ss = new NXTSoundSensor(SensorPort.S2);
         SensorMode sound = (SensorMode) ss.getDBAMode();
-        SoundDetection clap = new SoundDetection(sound, 0.6f, 100);
+        SoundDetection clap = new SoundDetection(sound, 0.4f, 200, 600);
 
 
         float[] level = new float[1];
@@ -23,14 +23,13 @@ public class TestMorseCode {
 
         int i = 0;
 
-
+        System.out.print("Morse Code Heard:");
         while (i == 0) {
             if (Button.ENTER.isDown()) {
                 i++;
                 break;
             }
-
-
+            
             clap.fetchSample(level, 0);
             if (level[0] == 1.0) {
                 System.out.println("Dot heard");

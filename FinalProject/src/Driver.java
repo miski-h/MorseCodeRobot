@@ -17,10 +17,13 @@ import lejos.robotics.subsumption.Behavior;
 
 public class Driver {
     public static void main(String[] args) {
-        System.out.println("Welcome to Our Morse Code Robot!");
-        System.out.println("Authors: Samuel Haddock, Yash Kumar and Miski Hussein");
-        System.out.println("Version: 1.0");
-        System.out.println("Press Enter button to continue...");
+    	LCD.drawString("Welcome to Our Morse Code Robot!", 0, 0);
+    	LCD.drawString("Authors: Samuel Haddock, Yash Kumar", 0, 1);
+    	LCD.drawString("and Miski Hussein", 0, 2);
+    	LCD.drawString("Version: 1.0", 0, 3);
+    	LCD.drawString("Press Enter button to continue...", 0, 4);
+
+
         Button.ENTER.waitForPress();
 
         final BaseRegulatedMotor mL = new EV3LargeRegulatedMotor(MotorPort.A);
@@ -32,7 +35,7 @@ public class Driver {
         NXTSoundSensor soundSensor = new NXTSoundSensor(SensorPort.S2);
         SampleProvider soundMode = soundSensor.getDBAMode();
 
-        circleCommand(mL, mR);
+        squareCommand(mL, mR);
 
         /*Behavior forwardBehavior = new Trundle(pilot);
         Behavior avoidWallBehavior = new Backup(SensorPort.S3, pilot);

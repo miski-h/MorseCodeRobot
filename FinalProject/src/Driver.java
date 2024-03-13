@@ -81,15 +81,16 @@ public class Driver {
     }
 
     public static void circleCommand(BaseRegulatedMotor mL, BaseRegulatedMotor mR) {
-    	System.out.print("Running circle command...");
-        mR.synchronizeWith(new BaseRegulatedMotor[] {mL});
-        mR.startSynchronization(); 
-        mR.rotate(720,true); 
-        mR.rotate(720,true); 
-
-        mL.endSynchronization(); 
-        mL.waitComplete();
-        mR.waitComplete();
+    	mR.rotate(360);
+        mL.forward(); Delay.msDelay(1000); 
+        mL.stop(); Delay.msDelay(200); 
+        mR.rotate(-180); Delay.msDelay(1000); 
+        mL.rotate(90); Delay.msDelay(200); 
+        mL.forward(); Delay.msDelay(1000);
+        mL.stop(); Delay.msDelay(200); 
+        mL.forward(); Delay.msDelay(1000); 
+        mL.stop(); Delay.msDelay(200); 
+        mR.stop();
 
     }
 

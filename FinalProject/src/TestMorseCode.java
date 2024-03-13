@@ -62,7 +62,7 @@ public class TestMorseCode {
                 lastSoundTime = System.currentTimeMillis(); // Update the time of the last sound
             }
 
-            if (System.currentTimeMillis() - lastSoundTime > 3000) {
+            if (System.currentTimeMillis() - lastSoundTime > 2000) {
                 // If no sound is detected for 3 seconds, save all the dots and dashes as a word
                 for(String key : morseAlphabet.keySet()) {
                 	if(morseAlphabet.get(key) == morseList.toString()) {
@@ -90,6 +90,10 @@ public class TestMorseCode {
             } else {
                 dashInProgress = false; // Reset dash in progress if no clap is detected
             }
+            
+            for(String letter : letterList) {
+            	System.out.print(letter);
+            }         
         }
 
         mLeft.close();

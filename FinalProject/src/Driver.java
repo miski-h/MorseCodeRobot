@@ -83,17 +83,27 @@ public class Driver {
     }
 
     public static void circleCommand(BaseRegulatedMotor mL, BaseRegulatedMotor mR) {
-    	LCD.drawString("Running circle command...", 0, 0);
-    	mR.rotate(360);
-        mL.forward(); Delay.msDelay(1000); 
-        mL.stop(); Delay.msDelay(200); 
-        mR.rotate(-180); Delay.msDelay(1000); 
-        mL.rotate(90); Delay.msDelay(200); 
-        mL.forward(); Delay.msDelay(1000);
-        mL.stop(); Delay.msDelay(200); 
-        mL.forward(); Delay.msDelay(1000); 
-        mL.stop(); Delay.msDelay(200); 
-        mR.stop();
+        BaseRegulatedMotor mLeft = new EV3LargeRegulatedMotor(MotorPort.A);
+		BaseRegulatedMotor mRight = new EV3LargeRegulatedMotor(MotorPort.B);
+		
+		mLeft.synchronizeWith(new BaseRegulatedMotor[] {mRight});
+		mLeft.setSpeed(720);
+		mRight.setSpeed(720);
+		
+		for (int i = 0; i < 4; i++) {
+			mLeft.rotate(360); 
+			mLeft.startSynchronization();
+			
+			mLeft.rotate(360);
+			mRight.rotate(360);
+			
+			mLeft.endSynchronization();
+			mLeft.waitComplete();
+			mRight.waitComplete();
+		}
+		
+		mLeft.close();
+		mRight.close();
 
     }
 

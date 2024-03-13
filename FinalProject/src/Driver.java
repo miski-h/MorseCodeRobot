@@ -36,8 +36,12 @@ public class Driver {
         // Initialise the sound sensor
         NXTSoundSensor soundSensor = new NXTSoundSensor(SensorPort.S2);
         SampleProvider soundMode = soundSensor.getDBAMode();
-
+        
+        squareCommand(mL, mR);
         circleCommand(mL, mR);
+        
+        mL.close();
+        mR.close();
 
         /*Behavior forwardBehavior = new Trundle(pilot);
         Behavior avoidWallBehavior = new Backup(SensorPort.S3, pilot);
@@ -76,10 +80,6 @@ public class Driver {
             pilot.travel(500);
             pilot.rotate(275); // Changed the angle to make a square
         }
-
-        // Close motor ports to release resources
-        mL.close();
-        mR.close();
     }
 
     public static void circleCommand(BaseRegulatedMotor mL, BaseRegulatedMotor mR) {

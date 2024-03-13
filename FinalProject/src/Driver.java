@@ -51,6 +51,7 @@ public class Driver {
     }
 
     public static void squareCommand(BaseRegulatedMotor mL, BaseRegulatedMotor mR) { // Fixed method name
+    	System.out.print("Running square command...");
         final float WHEEL_DIAMETER = 56;
         final float AXLE_LENGTH = 44;
         final float ANGULAR_SPEED = 200;
@@ -77,6 +78,7 @@ public class Driver {
     }
 
     public static void circleCommand(BaseRegulatedMotor mL, BaseRegulatedMotor mR) {
+    	System.out.print("Running circle command...");
         mR.synchronizeWith(new BaseRegulatedMotor[] {mL});
         mR.startSynchronization(); 
         mR.rotate(720,true); 
@@ -89,10 +91,12 @@ public class Driver {
     }
 
     public void freeRoamCommand() {
+    	System.out.print("Running free roam command...");
 
     }
 
     public void danceCommand() {
+    	System.out.print("Running dance command...");
 
     }
 }

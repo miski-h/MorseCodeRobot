@@ -32,7 +32,7 @@ public class Driver {
         NXTSoundSensor soundSensor = new NXTSoundSensor(SensorPort.S2);
         SampleProvider soundMode = soundSensor.getDBAMode();
 
-        squareCommand(mL, mR);
+        circleCommand(mL, mR);
 
         /*Behavior forwardBehavior = new Trundle(pilot);
         Behavior avoidWallBehavior = new Backup(SensorPort.S3, pilot);
@@ -76,18 +76,15 @@ public class Driver {
         mR.close();
     }
 
-    public void circleCommand() {
-        BaseRegulatedMotor mLeft = new EV3LargeRegulatedMotor(MotorPort.A);
-        BaseRegulatedMotor mRight = new EV3LargeRegulatedMotor(MotorPort.B);
-        
+    public static void circleCommand(BaseRegulatedMotor mL, BaseRegulatedMotor mR) {
         mR.synchronizeWith(new BaseRegulatedMotor[] {mL});
         mR.startSynchronization(); 
         mR.rotate(720,true); 
         mR.rotate(720,true); 
 
-        mLeft.endSynchronization(); 
-        mLeft.waitComplete();
-        mRight.waitComplete();
+        mL.endSynchronization(); 
+        mL.waitComplete();
+        mR.waitComplete();
 
     }
 

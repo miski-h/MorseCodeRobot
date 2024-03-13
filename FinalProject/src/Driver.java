@@ -23,18 +23,18 @@ public class Driver {
         System.out.println("Press Enter button to continue...");
         Button.ENTER.waitForPress();
 
-        BaseRegulatedMotor mL = new EV3LargeRegulatedMotor(MotorPort.A);
-        BaseRegulatedMotor mR = new EV3LargeRegulatedMotor(MotorPort.B);
+        final BaseRegulatedMotor mL = new EV3LargeRegulatedMotor(MotorPort.A);
+        final BaseRegulatedMotor mR = new EV3LargeRegulatedMotor(MotorPort.B);
 
         LCD.clear();
-        @SuppressWarnings("deprecation")
-		MovePilot pilot = new MovePilot(5.6f, 12.0f, Motor.A, Motor.B); // Fixed motor references
 
         // Initialise the sound sensor
         NXTSoundSensor soundSensor = new NXTSoundSensor(SensorPort.S2);
         SampleProvider soundMode = soundSensor.getDBAMode();
 
-        Behavior forwardBehavior = new Trundle(pilot);
+        squareCommand(mL, mR);
+
+        /*Behavior forwardBehavior = new Trundle(pilot);
         Behavior avoidWallBehavior = new Backup(SensorPort.S3, pilot);
         Behavior lowBatteryBehavior = new LowBattery();
         Behavior darkChecker = new DarkChecker(pilot, SensorPort.S1);
@@ -43,12 +43,11 @@ public class Driver {
 
         while (!Button.ENTER.isDown()) {
             arbitrator.go();
-            squareCommand(mL, mR); // Fixed method call
         }
 
         // Stop the arbitrator and close the sound sensor when the enter button is pressed
         arbitrator.stop();
-        soundSensor.close();
+        soundSensor.close();*/
     }
 
     public static void squareCommand(BaseRegulatedMotor mL, BaseRegulatedMotor mR) { // Fixed method name
@@ -65,14 +64,11 @@ public class Driver {
         WheeledChassis chassis = new WheeledChassis(wheels, WheeledChassis.TYPE_DIFFERENTIAL);
         MovePilot pilot = new MovePilot(chassis);
 
-        // Using OdometryPoseProvider
-        PoseProvider poseProvider = new OdometryPoseProvider(pilot);
-
         for (int side = 0; side < 4; side++) {
             pilot.setAngularSpeed(ANGULAR_SPEED);
             pilot.setLinearSpeed(LINEAR_SPEED);
-            pilot.travel(300);
-            pilot.rotate(90); // Changed the angle to make a square
+            pilot.travel(500);
+            pilot.rotate(275); // Changed the angle to make a square
         }
 
         // Close motor ports to release resources

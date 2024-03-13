@@ -109,9 +109,48 @@ public class Driver {
 
     }
 
-    public void danceCommand() {
+    public void danceCommand(BaseRegulatedMotor mL, BaseRegulatedMotor mR) {
     	LCD.drawString("Running dance command...", 0, 0);
-
+	
+	mL.synchronizeWith(new BaseRegulatedMotor[] {mR});
+	mL.setSpeed(600);
+	mR.setSpeed(600);
+	    
+	for (int i = 0; i < 3; i++) {
+		mL.rotate(360); 
+		mL.startSynchronization();
+			
+		mL.forward();
+		mR.forward();
+		Delay.msDelay(2000);
+				
+		mL.rotate(720);
+		mR.rotate(720);
+		Delay.msDelay(2000);
+			
+		mL.backward();
+		mR.forward();
+		Delay.msDelay(2000);
+					
+		mL.forward();
+		mR.forward();
+		Delay.msDelay(900);
+		
+		mL.rotate(540);
+		mR.rotate(360);
+		Delay.msDelay(2000);
+					
+		mL.rotate(720);
+		mR.rotate(1080);
+		Delay.msDelay(2000);
+		
+		mL.endSynchronization();
+		mL.waitComplete();
+		mR.waitComplete();
+	}
+		
+	mL.close();
+	mR.close();
     }
 }
 

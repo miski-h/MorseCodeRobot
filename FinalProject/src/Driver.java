@@ -36,7 +36,7 @@ public class Driver {
         NXTSoundSensor soundSensor = new NXTSoundSensor(SensorPort.S2);
         SampleProvider soundMode = soundSensor.getDBAMode();
 
-        squareCommand(mL, mR);
+        circleCommand(mL, mR);
 
         /*Behavior forwardBehavior = new Trundle(pilot);
         Behavior avoidWallBehavior = new Backup(SensorPort.S3, pilot);

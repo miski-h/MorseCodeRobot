@@ -77,6 +77,17 @@ public class Driver {
     }
 
     public void circleCommand() {
+        BaseRegulatedMotor mLeft = new EV3LargeRegulatedMotor(MotorPort.A);
+        BaseRegulatedMotor mRight = new EV3LargeRegulatedMotor(MotorPort.B);
+        
+        mR.synchronizeWith(new BaseRegulatedMotor[] {mL});
+        mR.startSynchronization(); 
+        mR.rotate(720,true); 
+        mR.rotate(720,true); 
+
+        mLeft.endSynchronization(); 
+        mLeft.waitComplete();
+        mRight.waitComplete();
 
     }
 

@@ -20,9 +20,10 @@ public class Driver {
     public static void main(String[] args) {
     	LCD.drawString("Welcome to Our Morse Code Robot!", 0, 0);
     	LCD.drawString("Authors: Samuel Haddock, Yash Kumar", 0, 1);
-    	LCD.drawString("and Miski Hussein", 0, 2);
-    	LCD.drawString("Version: 1.0", 0, 3);
-    	LCD.drawString("Press Enter button to continue...", 0, 4);
+    	LCD.drawString("Yash Kumar", 0, 2);
+    	LCD.drawString("and Miski Hussein", 0, 3);
+    	LCD.drawString("Version: 1.0", 0, 4);
+    	LCD.drawString("Press Enter button to continue...", 0, 5);
 
 
         Button.ENTER.waitForPress();
@@ -55,7 +56,7 @@ public class Driver {
     }
 
     public static void squareCommand(BaseRegulatedMotor mL, BaseRegulatedMotor mR) { // Fixed method name
-    	System.out.print("Running square command...");
+    	LCD.drawString("Running square command...", 0, 0);
         final float WHEEL_DIAMETER = 56;
         final float AXLE_LENGTH = 44;
         final float ANGULAR_SPEED = 200;
@@ -82,7 +83,7 @@ public class Driver {
     }
 
     public static void circleCommand(BaseRegulatedMotor mL, BaseRegulatedMotor mR) {
-    	System.out.print("Running circle command...");
+    	LCD.drawString("Running circle command...", 0, 0);
     	mR.rotate(360);
         mL.forward(); Delay.msDelay(1000); 
         mL.stop(); Delay.msDelay(200); 
@@ -97,12 +98,12 @@ public class Driver {
     }
 
     public void freeRoamCommand() {
-    	System.out.print("Running free roam command...");
+    	LCD.drawString("Running free roam command...", 0, 0);
 
     }
 
     public void danceCommand() {
-    	System.out.print("Running dance command...");
+    	LCD.drawString("Running dance command...", 0, 0);
 
     }
 }

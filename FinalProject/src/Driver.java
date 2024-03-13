@@ -14,6 +14,7 @@ import lejos.robotics.navigation.MovePilot;
 import lejos.hardware.sensor.NXTSoundSensor;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
+import lejos.utility.Delay;
 
 public class Driver {
     public static void main(String[] args) {
@@ -81,6 +82,7 @@ public class Driver {
     }
 
     public static void circleCommand(BaseRegulatedMotor mL, BaseRegulatedMotor mR) {
+    	System.out.print("Running circle command...");
     	mR.rotate(360);
         mL.forward(); Delay.msDelay(1000); 
         mL.stop(); Delay.msDelay(200); 

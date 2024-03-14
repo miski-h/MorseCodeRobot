@@ -104,9 +104,27 @@ public class Driver {
 
     }
 
-    public void freeRoamCommand() {
-    	LCD.drawString("Running free roam command...", 0, 0);
+    public void freeRoamCommand(BaseRegulatedMotor mL, BaseRegulatedMotor mR, NXTSoundSensor soundSensor) {
+    	Behavior backupBehavior = new Backup(SensorPort.S3, pilot);
+	
+	long startTime = System.currentTimeMillis();
+        long elapsedTime = 0;
 
+        while (elapsedTime < 60000) {
+            if (backupBehavior.takeControl()) {
+                backupBehavior.action();
+            } else {
+                pilot.forward();
+            }
+
+            elapsedTime = System.currentTimeMillis() - startTime;
+        }
+        
+	pilot.stop();
+
+        mL.close();
+        mR.close();
+        soundSensor.close();
     }
 
     public void danceCommand(BaseRegulatedMotor mL, BaseRegulatedMotor mR) {
